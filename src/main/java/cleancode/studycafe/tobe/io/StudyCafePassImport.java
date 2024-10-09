@@ -1,5 +1,6 @@
 package cleancode.studycafe.tobe.io;
 
+import cleancode.studycafe.tobe.model.pass.StudyCafePass;
 import cleancode.studycafe.tobe.model.pass.StudyCafePassType;
 import cleancode.studycafe.tobe.model.pass.StudyCafePasses;
 
@@ -9,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyCafePassImport implements StudyCafePass {
+public class StudyCafePassImport implements StudyCafe {
 
     public static final String STUDY_PASS_LIST_PATH = "src/main/resources/cleancode/studycafe/pass-list.csv";
 
@@ -36,7 +37,7 @@ public class StudyCafePassImport implements StudyCafePass {
             int price = Integer.parseInt(values[2]);
             double discountRate = Double.parseDouble(values[3]);
 
-            cleancode.studycafe.tobe.model.pass.StudyCafePass studyCafePass = cleancode.studycafe.tobe.model.pass.StudyCafePass.of(studyCafePassType, duration, price, discountRate);
+            StudyCafePass studyCafePass = StudyCafePass.of(studyCafePassType, duration, price, discountRate);
             studyCafePasses.add(studyCafePass);
         }
         return studyCafePasses;

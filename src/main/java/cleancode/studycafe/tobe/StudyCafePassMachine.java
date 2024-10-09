@@ -4,10 +4,11 @@ import cleancode.studycafe.tobe.exception.AppException;
 import cleancode.studycafe.tobe.io.Locker;
 import cleancode.studycafe.tobe.io.StudyCafeInputHandler;
 import cleancode.studycafe.tobe.io.StudyCafeOutputHandler;
-import cleancode.studycafe.tobe.io.StudyCafePass;
+import cleancode.studycafe.tobe.io.StudyCafe;
 import cleancode.studycafe.tobe.model.StudyCafePassOrder;
 import cleancode.studycafe.tobe.model.locker.StudyCafeLockerPass;
 import cleancode.studycafe.tobe.model.locker.StudyCafeLockerPasses;
+import cleancode.studycafe.tobe.model.pass.StudyCafePass;
 import cleancode.studycafe.tobe.model.pass.StudyCafePassType;
 import cleancode.studycafe.tobe.model.pass.StudyCafePasses;
 
@@ -19,11 +20,11 @@ public class StudyCafePassMachine {
     private final StudyCafeInputHandler studyCafeInputHandler = new StudyCafeInputHandler();
     private final StudyCafeOutputHandler studyCafeOutputHandler = new StudyCafeOutputHandler();
 
-    private final StudyCafePass studyCafePassProvider;
+    private final StudyCafe studyCafeProvider;
     private final Locker lockerPassProvider;
 
-    public StudyCafePassMachine(StudyCafePass studyCafePassProvider, Locker lockerPassProvider) {
-        this.studyCafePassProvider = studyCafePassProvider;
+    public StudyCafePassMachine(StudyCafe studyCafeProvider, Locker lockerPassProvider) {
+        this.studyCafeProvider = studyCafeProvider;
         this.lockerPassProvider = lockerPassProvider;
     }
 
@@ -35,7 +36,7 @@ public class StudyCafePassMachine {
 
             StudyCafePassType studyCafePassType = getStudyCafePassType();
 
-            cleancode.studycafe.tobe.model.pass.StudyCafePass selectedPass = getStudyCafePass(studyCafePassType);
+            StudyCafePass selectedPass = getStudyCafePass(studyCafePassType);
 
             Optional<StudyCafeLockerPass> optionalLockerPass = getStudyCafeLocker(selectedPass);
 
@@ -49,13 +50,13 @@ public class StudyCafePassMachine {
         }
     }
 
-    private cleancode.studycafe.tobe.model.pass.StudyCafePass getStudyCafePass(StudyCafePassType studyCafePassType) {
-        List<cleancode.studycafe.tobe.model.pass.StudyCafePass> selectPassTicket = getStudyCafePasses(studyCafePassType);
+    private StudyCafePass getStudyCafePass(StudyCafePassType studyCafePassType) {
+        List<StudyCafePass> selectPassTicket = getStudyCafePasses(studyCafePassType);
         studyCafeOutputHandler.showPassListForSelection(selectPassTicket);
         return studyCafeInputHandler.getSelectPass(selectPassTicket);
     }
 
-    private Optional<StudyCafeLockerPass> getStudyCafeLocker(cleancode.studycafe.tobe.model.pass.StudyCafePass selectedPass) {
+    private Optional<StudyCafeLockerPass> getStudyCafeLocker(StudyCafePass selectedPass) {
         StudyCafeLockerPasses lockerPasses = lockerPassProvider.getLockerPass();
         Optional<StudyCafeLockerPass> lockerPass = lockerPasses.getStudyCafeLockerPass(selectedPass);
 
@@ -78,8 +79,8 @@ public class StudyCafePassMachine {
         return studyCafeInputHandler.getPassTypeSelectingUserAction();
     }
 
-    private List<cleancode.studycafe.tobe.model.pass.StudyCafePass> getStudyCafePasses(StudyCafePassType studyCafePassType) {
-        StudyCafePasses studyCafePasses = studyCafePassProvider.getStudyCafePasses();
+    private List<StudyCafePass> getStudyCafePasses(StudyCafePassType studyCafePassType) {
+        StudyCafePasses studyCafePasses = studyCafeProvider.getStudyCafePasses();
         return studyCafePasses.getTypeTicket(studyCafePassType);
     }
 
