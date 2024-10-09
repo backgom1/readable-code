@@ -1,28 +1,38 @@
 package cleancode.studycafe.tobe.io;
 
 import cleancode.studycafe.tobe.exception.AppException;
-import cleancode.studycafe.tobe.model.StudyCafePass;
-import cleancode.studycafe.tobe.model.StudyCafePassType;
+import cleancode.studycafe.tobe.model.pass.StudyCafePass;
+import cleancode.studycafe.tobe.model.pass.StudyCafePassType;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class InputHandler {
+public class StudyCafeInputHandler {
 
+    public static final String HOURLY = "1";
+    public static final String WEEKLY = "2";
+    public static final String FIXED = "3";
     private static final Scanner SCANNER = new Scanner(System.in);
 
     public StudyCafePassType getPassTypeSelectingUserAction() {
+        return getPassType();
+    }
+
+    private StudyCafePassType getPassType() {
         String userInput = SCANNER.nextLine();
 
-        if ("1".equals(userInput)) {
+        if (HOURLY.equals(userInput)) {
             return StudyCafePassType.HOURLY;
         }
-        if ("2".equals(userInput)) {
+
+        if (WEEKLY.equals(userInput)) {
             return StudyCafePassType.WEEKLY;
         }
-        if ("3".equals(userInput)) {
+
+        if (FIXED.equals(userInput)) {
             return StudyCafePassType.FIXED;
         }
+
         throw new AppException("잘못된 입력입니다.");
     }
 

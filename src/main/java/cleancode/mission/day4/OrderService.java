@@ -2,9 +2,11 @@ package cleancode.mission.day4;
 
 import java.util.logging.Logger;
 
+import static java.util.logging.Logger.getLogger;
+
 public class OrderService {
 
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private final Logger log = getLogger(this.getClass().getName());
 
     private final OrderValidation orderValidation = new OrderValidation();
 
