@@ -2,7 +2,7 @@ package cleancode.studycafe.asis.model.pass;
 
 import cleancode.studycafe.asis.model.pass.locker.StudyCafeLockerPass;
 
-public class StudyCafeSeatPass implements StudyCafePass{
+public class StudyCafeSeatPass implements StudyCafePass {
 
     private final StudyCafePassType passType;
     private final int duration;
@@ -29,7 +29,7 @@ public class StudyCafeSeatPass implements StudyCafePass{
                 && this.duration == lockerPass.getDuration();
     }
 
-    public boolean cannotUseLocker(){
+    public boolean cannotUseLocker() {
         return this.passType.isNotLockerType();
     }
 
@@ -53,4 +53,7 @@ public class StudyCafeSeatPass implements StudyCafePass{
     }
 
 
+    public int getDiscountPrice() {
+        return (int) (price * discountRate);
+    }
 }
