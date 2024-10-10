@@ -63,7 +63,7 @@ public class StudyCafePassMachine {
         StudyCafeLockerPass lockerPassCandidate = findPassLockerBy(selectedPass);
 
         if (lockerPassCandidate != null) {
-            boolean isLockerSelected = studyCafeIOHandler.askLockPass(lockerPassCandidate)
+            boolean isLockerSelected = studyCafeIOHandler.askLockPass(lockerPassCandidate);
             if (isLockerSelected) {
                 return Optional.of(lockerPassCandidate);
             }
