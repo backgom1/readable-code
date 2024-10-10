@@ -1,7 +1,5 @@
 package cleancode.studycafe.asis.model;
 
-import java.util.Set;
-
 public class StudyCafePass {
 
     private final StudyCafePassType passType;
