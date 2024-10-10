@@ -1,5 +1,7 @@
 package cleancode.studycafe.asis.model;
 
+import java.util.Set;
+
 public class StudyCafePass {
 
     private final StudyCafePassType passType;
@@ -18,12 +20,21 @@ public class StudyCafePass {
         return new StudyCafePass(passType, duration, price, discountRate);
     }
 
-    public StudyCafePassType getPassType() {
-        return passType;
+    public boolean isSamePassType(StudyCafePassType studyCafePassType) {
+        return this.passType == studyCafePassType;
     }
 
-    public int getDuration() {
-        return duration;
+    public boolean isSameDurationType(StudyCafeLockerPass lockerPass) {
+        return this.passType == lockerPass.getPassType()
+                && this.duration == lockerPass.getDuration();
+    }
+
+    public boolean cannotUseLocker(){
+        return this.passType.isNotLockerType();
+    }
+
+    public StudyCafePassType getPassType() {
+        return passType;
     }
 
     public int getPrice() {
