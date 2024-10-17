@@ -43,4 +43,6 @@ class CellPositionTest {
                 .hasMessage("올바르지 않은 좌표입니다.");
     }
 
+
+
 }

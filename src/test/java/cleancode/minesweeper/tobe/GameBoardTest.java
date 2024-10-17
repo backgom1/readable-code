@@ -23,8 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameBoardTest {
 
 
-
-
     @Test
     @DisplayName("게임 맵 생성 사이즈 테스트- Advanced")
     void advanced() {
@@ -69,12 +67,28 @@ class GameBoardTest {
 
     @Test
     @DisplayName("셀을 열었을 경우 - 깃발을 꽂는 경우에 대한 테스트")
-    void openAt(){
+    void flagAt() {
         GameBoard gameBoard = new GameBoard(new VeryBeginner());
+        gameBoard.initializeGame();
         CellPosition cellPosition = CellPosition.of(3, 3);
         gameBoard.flagAt(cellPosition);
         CellSnapshot snapshot = gameBoard.getSnapshot(cellPosition);
         Assertions.assertThat(snapshot.isSameStatus(CellSnapshotStatus.FLAG)).isTrue();
     }
 
+    @Test
+    @DisplayName("셀을 열었을 경우 - 빈 셀이거나 넘버 셀인 경우")
+    void openAt() {
+        // given
+        GameBoard gameBoard = new GameBoard(new VeryBeginner());
+        gameBoard.initializeGame();
+        CellPosition cellPosition = CellPosition.of(3, 3);
+
+        // when
+        gameBoard.openAt(cellPosition);
+        CellSnapshot snapshot = gameBoard.getSnapshot(cellPosition);
+
+        // then
+        assertThat(snapshot.isSameStatus(CellSnapshotStatus.EMPTY) || snapshot.isSameStatus(CellSnapshotStatus.NUMBER)).isTrue();
+    }
 }
